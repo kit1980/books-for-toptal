@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="thin center">Submit Review</h2>
+<p class="center">
+  <form action="{{ request.path }}" method="POST">
+    <table border="0">
+      {{ form }}
+    </table>
+  <div style="margin-left: 315px;">
+    <input type="submit" name="submit_action" value="Submit review">
+  </div>
+
+  </form>
+</p>
+
+{% endblock %}
