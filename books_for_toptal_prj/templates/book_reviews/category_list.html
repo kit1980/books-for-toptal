@@ -1,6 +1,7 @@
 <div id="top_users">
     <h2>Categories</h2>
     <ul>
+        <li><strong><a href="{% url book_reviews.views.home %}">All categories</a></strong></li>
         {% for category in category_list %} 
         <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
         {% endfor %} 
