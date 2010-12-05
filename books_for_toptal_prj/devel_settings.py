@@ -1,5 +1,5 @@
 DEBUG = False
 
-MEDIA_URL = 'http://wp.progopedia.com/books/media/'
-ADMIN_MEDIA_PREFIX = 'http://wp.progopedia.com/books/admin-media/'
+MEDIA_URL = 'http://127.0.0.1/books/media/'
+ADMIN_MEDIA_PREFIX = 'http://127.0.0.1/books/admin-media/'
 
