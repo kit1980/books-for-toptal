@@ -6,6 +6,7 @@ PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__))
 # settings for https://github.com/howthebodyworks/django-rpx
 RPXNOW_API_KEY = 'ee5fe7ea34e2c4861415894c233e79894726814a'
 RPXNOW_REALM = 'book-reviews'
+LOGIN_REDIRECT_URL = '/'
 
 DATABASES = {
     'default': {
