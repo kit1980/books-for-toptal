@@ -3,6 +3,7 @@ from django.db import models
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
 
     def __unicode__(self):
         return self.name
@@ -10,8 +11,9 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = "categories"
 
-    def get_absolute_url(self):
-        return '/category/%i/' % self.id
+    @models.permalink      
+    def get_absolute_url(self): 
+        return ('book_reviews.views.category_detail', [self.slug]) 
 
 
 class Review(models.Model):
@@ -20,7 +22,7 @@ class Review(models.Model):
     category = models.ForeignKey(Category)
     book_author = models.CharField(max_length=255)
     book_title = models.CharField(max_length=255)
-    book_cover = ImageField(upload_to='covers/%Y/%m/%d', blank=True)
+    book_cover = models.ImageField(upload_to='covers/%Y/%m/%d', blank=True)
     text = models.TextField()
 
     def __unicode__(self):
@@ -29,13 +31,12 @@ class Review(models.Model):
     # @property
     # def rating(self):
 
+    @models.permalink      
+    def get_absolute_url(self): 
+        return ('book_reviews.views.category_detail', [self.id]) 
 
 
-    def get_absolute_url(self):
-        return '/review/%i/' % self.id
-
-
-class Votes(models.Model):
-    user =  models.ForeignKey(User)
-    review = models.ForeignKey(Review)
+# class Votes(models.Model):
+#     user =  models.ForeignKey(User)
+#     review = models.ForeignKey(Review)
 
