@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 {% load category_list %}
+{% load rpx_tags %}
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
     <head>
         <title>Book Reviews Test Project</title>
@@ -15,10 +16,17 @@
         <!-- 
              <link rel="stylesheet" href="{{ MEDIA_URL }}css/style.css" type="text/css" media="screen, projection" />
         -->
+    
+        {% rpx_script %}
     </head>
-
+    
     <body>
         <div class="container">
+
+            <div class="span-24 last">
+                {% rpx_link "Login" %}
+            </div>
+
             <div class="span-24 last center">
                 <h1 class="thin">Book Reviews</h1>
                 <hr />

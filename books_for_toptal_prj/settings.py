@@ -3,6 +3,10 @@
 import os.path             
 PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__))   
 
+# settings for https://github.com/howthebodyworks/django-rpx
+RPXNOW_API_KEY = 'ee5fe7ea34e2c4861415894c233e79894726814a'
+RPXNOW_REALM = 'book-reviews'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
@@ -83,7 +87,13 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
+    'django_rpx',
     'book_reviews',
+)
+
+AUTHENTICATION_BACKENDS = (
+  'django_rpx.backends.RpxBackend',
+  'django.contrib.auth.backends.ModelBackend',
 )
 
 # include local (devel or production) settings
