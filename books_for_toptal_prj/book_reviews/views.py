@@ -81,9 +81,14 @@ def new_review(request):
 @login_required
 def upvote_review(request, review_id):
     review = get_object_or_404(Review, id=review_id)
-    vote = Vote.objects.get_or_create(user=request.user, review=review)[0]
-    vote.rating = 1
+
+    try:
+        vote = Vote.objects.get(user=request.user, review=review)
+    except Vote.DoesNotExist:
+        vote = Vote(user=request.user, review=review)
+    vote.rating = 1    
     vote.save()
+
     return redirect(review_detail, review.id)
 
 
@@ -91,9 +96,14 @@ def upvote_review(request, review_id):
 @login_required
 def downvote_review(request, review_id):
     review = get_object_or_404(Review, id=review_id)
-    vote = Vote.objects.get_or_create(user=request.user, review=review)[0]
-    vote.rating = -1
+
+    try:
+        vote = Vote.objects.get(user=request.user, review=review)
+    except Vote.DoesNotExist:
+        vote = Vote(user=request.user, review=review)
+    vote.rating = -1    
     vote.save()
+
     return redirect(review_detail, review.id)
 
     
