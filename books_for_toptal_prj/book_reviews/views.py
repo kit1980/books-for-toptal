@@ -58,7 +58,7 @@ def new_review(request):
             exclude = ('user',)
 
 
-    form = ReviewForm(request.user, request.POST or None)
+    form = ReviewForm(request.user, request.POST or None, request.FILES)
 
     if form.is_valid():
         review = form.save(commit=False)
