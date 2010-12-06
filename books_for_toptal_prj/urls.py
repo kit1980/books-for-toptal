@@ -12,8 +12,9 @@ urlpatterns = patterns(
     (r'^new/?$', 'book_reviews.views.home_new'),
 
     (r'^review/([\d]+)/$', 'book_reviews.views.review_detail'),
-    (r'^category/([-\w]+)/(top|new)/$', 'book_reviews.views.review_list'),
+    (r'^new_review/$', 'book_reviews.views.new_review'),
 
+    (r'^category/([-\w]+)/(top|new)/$', 'book_reviews.views.review_list'),
 
     (r'^admin/', include(admin.site.urls)),
 )

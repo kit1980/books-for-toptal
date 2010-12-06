@@ -13,7 +13,7 @@ class Category(models.Model):
 
     @models.permalink      
     def get_absolute_url(self): 
-        return ('book_reviews.views.category_detail', [self.slug]) 
+        return ('book_reviews.views.review_list', [self.slug, 'top']) 
 
 
 class Review(models.Model):
@@ -30,13 +30,19 @@ class Review(models.Model):
 
     # @property
     # def rating(self):
+    #     print Votes.objects.filter(review=self).aggregate(models.Sum('rating'))
 
     @models.permalink      
     def get_absolute_url(self): 
-        return ('book_reviews.views.category_detail', [self.id]) 
+        return ('book_reviews.views.review_detail', [self.id]) 
 
 
-# class Votes(models.Model):
-#     user =  models.ForeignKey(User)
-#     review = models.ForeignKey(Review)
+class Vote(models.Model):
+    user = models.ForeignKey(User)
+    review = models.ForeignKey(Review)
+    rating = models.IntegerField()
+
+    class Meta:
+        unique_together = ("user", "review")
+ 
 
