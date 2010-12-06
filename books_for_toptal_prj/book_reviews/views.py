@@ -17,7 +17,7 @@ def home(request):
 def home_new(request):
     return list_detail.object_list(
         request,
-                queryset=Review.objects.all().annotate(rating=models.Sum('vote__rating')).order_by('-added'),
+        queryset=Review.objects.all().annotate(rating=models.Sum('vote__rating')).order_by('-added'),
         extra_context={'sorting': 'new'})
 
 def logout_view(request):
@@ -76,3 +76,24 @@ def new_review(request):
 
     return direct_to_template(request, 'book_reviews/review_form.html', {'form': form}) 
 
+
+# TODO: should be POST
+@login_required
+def upvote_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
+    vote = Vote.objects.get_or_create(user=request.user, review=review)[0]
+    vote.rating = 1
+    vote.save()
+    return redirect(review_detail, review.id)
+
+
+# TODO: should be POST
+@login_required
+def downvote_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
+    vote = Vote.objects.get_or_create(user=request.user, review=review)[0]
+    vote.rating = -1
+    vote.save()
+    return redirect(review_detail, review.id)
+
+    

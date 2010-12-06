@@ -14,6 +14,10 @@ urlpatterns = patterns(
     (r'^review/([\d]+)/$', 'book_reviews.views.review_detail'),
     (r'^new_review/$', 'book_reviews.views.new_review'),
 
+    # TODO: these should be POST requests
+    (r'^upvote_review/([\d]+)/$', 'book_reviews.views.upvote_review'),
+    (r'^downvote_review/([\d]+)/$', 'book_reviews.views.downvote_review'),
+
     (r'^category/([-\w]+)/(top|new)/$', 'book_reviews.views.review_list'),
 
     (r'^admin/', include(admin.site.urls)),
