@@ -11,7 +11,7 @@ from book_reviews.models import Review, Category, Vote
 def home(request):
     return list_detail.object_list(
         request,
-        queryset=Review.objects.all().annotate(rating=models.Sum('vote__rating')).order_by('-rating'),
+        queryset=Review.objects.all().annotate(rating=models.Sum('vote__rating')).order_by('-rating', '-added'),
         extra_context={'sorting': 'top'})
 
 def home_new(request):
@@ -36,9 +36,9 @@ def review_list(request, category_slug, sorting):
 
     if sorting != "new":
         sorting = "top"
-        reviews = category.review_set.annotate(rating=models.Sum('vote__rating')).order_by('-rating')
+        reviews = category.review_set.annotate(rating=models.Sum('vote__rating')).order_by('-rating', '-added')
     else:
-        reviews = category.review_set.order_by('-id')
+        reviews = category.review_set.order_by('-added')
 
     return list_detail.object_list(
         request,
