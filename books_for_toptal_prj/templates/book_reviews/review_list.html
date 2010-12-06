@@ -6,7 +6,38 @@
 
 {% block content %}
 
-    <h2>{{ object.book_title }} by {{ object.book_author }}</h2>
+    {% if category %}
+    <h2>Reviews in category {{ category.name }}</h2>
+
+    {% if sorting == "new" %}
+    <a href="{% url book_reviews.views.review_list category.slug 'top' %}">Top</a> |
+    <strong>New</strong>
+
+    {% else %}
+    <strong>Top</strong> |
+    <a href="{% url book_reviews.views.review_list category.slug 'new' %}">New</a>
+
+    {% endif %}
+    
+    {% else %}
+    <h2>Reviews in all categories</h2>
+
+    {% if sorting == "new" %}
+    <a href="{% url book_reviews.views.home %}">Top</a> |
+    <strong>New</strong>
+
+    {% else %}
+    <strong>Top</strong> |
+    <a href="{% url book_reviews.views.home_new %}">New</a>
+
+    {% endif %}
+
+    {% endif %}
+
+
+    {% for object in object_list %}
+
+    <h3>{{ object.book_title }} by {{ object.book_author }}</h3>
     <p>
         <em>Category: {{ object.category.name }}</em><br />
         <em>Added by {{ object.user.username }} at {{ object.added|date }}</em>
@@ -35,5 +66,14 @@
         Please {% rpx_link "login" %} to be able to vote for reviews.
         {% endif %}
     </p>
+    
+    <hr />
+
+    {% empty %}
+    <p>
+        Sorry, no reviews in this category yet.
+    </p>
+
+    {% endfor %}
 
 {% endblock %}
